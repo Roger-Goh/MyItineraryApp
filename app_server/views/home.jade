@@ -1,5 +1,89 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to coffee loving paradise!
+  body
+    // Sidebar
+    nav
+      .sidebar
+        img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
+        h2 Vacation Planner
+        h3 By Roger Goh 21618306
+        ul
+          li
+            a(href='starthere.html')
+              b  Home ☀
+          li
+            a(href='register.html')  Register 
+          li
+            a(href='ref.html')  References 
+        p
+          | Hi there, this is the 'homepage'. Since you're not signed in yet this page is simply a display page showing what you can do
+          | with this app! Theres little functionality here so you'll be more impressed later :D
+        .footer
+          p#curTime
+          p#dateMod
+          script.
+            //getting last modified date
+            document.getElementById("dateMod").innerHTML = "Last modified date: " + document.lastModified;
+            //get current time
+            startTime();
+            function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('curTime').innerHTML =
+            "Current Time: " + h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+            }
+            function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+            }
+    // Title
+    .header
+      b(style='font-size: 30px;') Places to Go
+    // Photo Gallery
+    .gallerycenter
+      .gallery
+        input.galleryimg(type='image', src='/images/japan.jpg', alt='Japan', width='299', height='449', onclick='loginWarning()')
+        .desc
+          b Japan 2018
+        .desc2
+          | My dream destination to take all my closest family and friends; cherry blossoms, sushi, saunas, culture.
+      .gallery
+        input.galleryimg(type='image', src='/images/london.jpg', alt='London', width='299', height='449', onclick='loginWarning()')
+        .desc
+          b England 2019
+        .desc2
+          | Another example of a place I would like to go with some friends one day! Yummy food and places to see.
+      .gallery
+        input.galleryimg(type='image', src='/images/france.jpg', alt='france', width='299', height='449', onclick='loginWarning()')
+        .desc
+          b France 2020
+        .desc2
+          | Another example of a place I would like to go with some friends one day! Yummy food and places to see.
+      .gallery
+        input.galleryimg(type='image', src='/images/china.jpg', alt='china', width='299', height='449', onclick='loginWarning()')
+        .desc
+          b China 2021
+        .desc2
+          | Another example of a place I would like to go with some friends one day! Yummy food and places to see.
+      .gallery
+        input.galleryimg(type='image', src='/images/italy.jpg', alt='italy', width='299', height='449', onclick='loginWarning()')
+        .desc
+          b Italy 2022
+        .desc2
+          | Another example of a place I would like to go with some friends one day! Yummy food and places to see.
+      .gallery
+        input.galleryimg(type='image', src='/images/southkorea.jpg', alt='southkorea', width='299', height='449', onclick='loginWarning()')
+        .desc
+          b South Korea 2023
+        .desc2
+          | Another example of a place I would like to go with some friends one day! Yummy food and places to see.
+    script.
+      function loginWarning(){
+      alert("Please login or register first to edit vacations!");
+      }

@@ -1,8 +1,161 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color: white;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-a {
-  color: #00B7FF;
+@font-face {
+    font-family: Sunshine;
+	src: url('Sunshine.ttf');
 }
+
+.header {
+	margin-left: 315px;
+	width: 66%;
+    background-color: rgba(112, 124, 122, 0.0);
+    text-align: center;
+    padding: 20px;
+}
+
+.center { 
+    position: absolute;
+    top: 20%;
+	margin-left: 315px;
+    height : 30%;
+	right: 27%;
+    width: 30%;
+    text-align: center;
+    font-size: large;
+}
+
+.gallerycenter {
+    position: absolute;
+    top: 16%;
+    margin-left: 314px;
+    height : 85%;
+    width: 77%;
+    background-color: rgba(112, 124, 122, 0.0);
+    text-align: center;
+    font-size: large;
+}
+
+.sidebar {
+	height:100%;
+	width:280px;
+	background-color: rgb(242, 242, 242);
+	position:fixed!important;
+	z-index:1;
+	overflow:auto;
+	text-align:center;
+	padding: 40px 0px;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 280px;
+   color: white;
+   text-align: center;
+}
+
+nav ul{
+    list-style-type: none;
+	padding: 0px 0px;
+	text-align:center;
+}
+nav li a{
+    display: block;
+    color: rgb(6, 204, 164,0.6);
+    padding: 8px 16px;
+    text-decoration: none;
+}
+nav li a:active{
+    background-color: rgba(170, 242, 174, 0.74);
+    color: white;
+}
+nav li a:hover {
+     background-color: rgb(187, 247, 241);
+}
+nav div p{
+	margin-left: 40px; 
+	margin-right: 40px;	
+    color: silver;
+}
+
+div {
+	color: teal;
+	font-family: Sunshine, sans-serif;
+}
+div.gallery {
+    margin: 10px;
+	margin-bottom: 50px;
+    float: left;
+	width: 28%; 
+	height: 74%;
+	background-color: white;
+}
+div.task {
+    margin: 10px;
+	margin-bottom: 50px;
+    float: left;
+	width: 28%; 
+	background-color: white;
+}
+div.gallery img {
+    height: 80%;
+	width: 100%;
+	size: cover;
+	border: 4px solid white;
+}
+.galleryimg {
+    height: 80%;
+	width: 100%;
+	size: cover;
+	border: 4px solid white;
+}
+div.gallery img:hover{
+     border: 4px solid rgb(106, 193, 185, 0.71);
+}
+.galleryimg:hover {
+     border: 4px solid rgb(106, 193, 185, 0.71);
+}
+
+div.desc {
+    padding: 6px;
+	width:auto;
+    text-align: center;
+}
+div.desc2 {
+	width:auto;
+    text-align: center;
+	color: rgb(6, 204, 164,0.5);
+}
+
+input[type=button]{
+    background-color: rgb(6, 204, 164,0.8);
+    color: white;
+    width: 13px;
+	height: 28px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    opacity: 0.9;
+}
+
+div.newplace{
+    margin: 10px;
+	margin-bottom: 50px;
+    float: left;
+	width: 87%; 
+	height: 74%;
+	text-align: center;
+}
+
+.warning {
+	color: red;
+}
+
