@@ -8,6 +8,10 @@ var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
 
 var homeRouter = require('./app_server/routes/home'); //mine :)
+var refRouter = require('./app_server/routes/ref');
+var registerRouter = require('./app_server/routes/register');
+var loginRouter = require('./app_server/routes/login');
+var createPlanRouter = require('./app_server/routes/createPlan');
 
 var app = express();
 
@@ -21,9 +25,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter); //when no sub path is provided
+app.use('/', homeRouter); //when no sub path is provided //used to be indexrouter
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
+app.use('/ref', refRouter);
+app.use('/register', registerRouter);
+app.use('/login', loginRouter);
+app.use('/createPlan', createPlanRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

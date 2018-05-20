@@ -1,0 +1,107 @@
+extends layout
+
+block content
+  title My Vacation Planner
+  body
+    // Sidebar
+    nav
+      .sidebar
+        img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
+        h2 Vacation Planner
+        h3 By Roger Goh 21618306
+        ul
+          li
+            a(href='home')  Home 
+          li
+            a(href='register')
+              b  Register ☀
+          li
+            a(href='ref')  References 
+        p
+          | Welcome to the register page! Simply fill in your details or click the link to log in 
+          br
+          | (if lazy like me).
+        p
+          | Your password must contain at least one number, one uppercase, lowercase letter and at least 4 or more characters.
+        .footer
+          p#curTime
+          p#dateMod
+          script.
+            //getting last modified date
+            document.getElementById("dateMod").innerHTML = "Last modified date: " + document.lastModified;
+            //get current time
+            startTime();
+            function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('curTime').innerHTML =
+            "Current Time: " + h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+            }
+            function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+            }
+    // Heading
+    .header
+      b(style='font-size: 30px;') Register
+    // Register Form
+    .center
+      form
+        label#passlabel.warning
+        // warning label in case password too weak or doesnt match
+        fieldset
+          legend Personal Information:
+          |             Username: 
+          br
+          input#usrn(type='text', name='firstname', value='Mr Bob Boberson')
+          br
+          |             Password: 
+          br
+          input#pass(type='password', name='password', value='')
+          br
+          |             Confirm Password: 
+          br
+          input#pass2(type='password', name='cpassword', value='')
+          br
+          |             Email: 
+          br
+          input#mail(type='text', name='email', value='bobbob@coldmail.com')
+          br
+          |             Date of Birth: 
+          br
+          input#bday(type='date', name='birthdate', value='1998-01-06')
+          br
+          br
+          input(type='button', value='Submit', onclick='register()')
+          script.
+            function register() {
+            var usrn = document.getElementById("usrn").value;
+            var pass = document.getElementById("pass").value;
+            var pass2 = document.getElementById("pass2").value; //check if passwords match
+            var mail = document.getElementById('mail').value;
+            var bday = document.getElementById('bday').value;
+            var usrReq = new RegExp(/.{4,}/g); //checks username
+            var passReq = new RegExp(/(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{4,}/g); //checks password strength
+            var mailReq = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$/g); //checks if valid email
+            if (pass !== pass2) {
+            document.getElementById("passlabel").innerHTML = "Passwords do not match*";
+            }else if(!(usrReq.test(usrn))){
+            document.getElementById("passlabel").innerHTML = "Username must be at least 4 characters long";
+            }else if(!(passReq.test(pass))){
+            document.getElementById("passlabel").innerHTML = "&#8592 Check password criteria";
+            }else if(!(mailReq.test(mail))){
+            document.getElementById("passlabel").innerHTML = "Invalid email";
+            }else if(!bday){
+            document.getElementById("passlabel").innerHTML = "Enter your birthdate";
+            }else{
+            document.getElementById("passlabel").innerHTML = ""; //removes warning if corrected
+            window.location.href="createPlan";
+            }
+            }
+      a(style='color: teal;', href='login')
+        b  Already have an account?

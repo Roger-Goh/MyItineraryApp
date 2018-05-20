@@ -1,0 +1,68 @@
+extends layout
+
+block content
+  title My Vacation Planner
+  body
+    // Sidebar
+    nav
+      .sidebar
+        img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
+        h2 Vacation Planner
+        h3 By Roger Goh 21618306
+        ul
+          li
+            a(href='home')  Home 
+          li
+            a(href='register')  Register 
+          li
+            a(href='ref')
+              b  References ☀
+        p
+          | References sure are 
+          i fun!
+        .footer
+          p#curTime
+          p#dateMod
+          script.
+            //getting last modified date
+            document.getElementById("dateMod").innerHTML = "Last modified date: " + document.lastModified;
+            //get current time
+            startTime();
+            function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('curTime').innerHTML =
+            "Current Time: " + h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+            }
+            function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+            }
+    // Heading
+    .header
+      b(style='font-size: 30px;') References
+    // Table of References
+    .gallerycenter(style='text-align: left')
+      form
+        label#passlabel.warning
+        // warning label in case password too weak or doesnt match
+        br
+        | Italy Photo: http://weddbook.com/media/2057159/grand-canal-venice-italy-venice-pinterest
+        br
+        br
+        | Paris Photo: https://www.clubmondain.com/Home/cities-main/
+        br
+        br
+        | London Photo: http://blogs.lexisnexis.co.uk/dr/reanalysing-the-arbitration-act-1996-in-its-prime-or-past-its-best/
+        br
+        br
+        | Japan Photo: http://regex.info/blog/2013-03-18/2226
+        br
+        br
+        | Plane Icon: https://www.freeiconspng.com/img/4973
+        br

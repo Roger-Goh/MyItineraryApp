@@ -1,0 +1,195 @@
+extends layout
+
+block content
+  title My Vacation Planner
+  body
+    // Sidebar
+    nav
+      .sidebar
+        img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
+        h2 Vacation Planner
+        h3 By Roger Goh 21618306
+        ul
+          li
+            a(href='#createPlan')
+              b  Home ☀
+          li
+            a(href='home')  Sign Out 
+        p Welcome to your Planner!
+        p
+          | I have created an entry on Japan for you to test out, please 
+          b click
+          |  on the image to access tasks.
+        p These tasks are ordered by how much users have rated them by priority.
+        p Feel free to create any new tasks or vacation plans!
+        .footer
+          p#curTime
+          p#dateMod
+          script.
+            //getting last modified date
+            document.getElementById("dateMod").innerHTML = "Last modified date: " + document.lastModified;
+            //get current time
+            startTime();
+            function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('curTime').innerHTML =
+            "Current Time: " + h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+            }
+            function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+            }
+    // Title
+    .header
+      b(style='font-size: 30px;') Places to Go
+    // Photo Gallery
+    .gallerycenter
+      .gallery
+        input#photo1.galleryimg(type='image', src='/images/empty.jpg', width='299', height='449', onclick='createfooter(1)', alt='0')
+        .desc
+          b#h1 Sample 2018
+        .desc2
+          span#d1 Example description here.
+      .gallery
+        input#photo2.galleryimg(type='image', src='/images/empty.jpg', width='299', height='449', onclick='createfooter(2)', alt='0')
+        .desc
+          b#h2 Sample 2019
+        .desc2
+          span#d2 Example description here.
+      .gallery
+        input#photo3.galleryimg(type='image', src='/images/empty.jpg', width='299', height='449', onclick='createfooter(3)', alt='0')
+        .desc
+          b#h3 Sample 2020
+        .desc2
+          span#d3 Example description here.
+      #footer.newplace(style='display: flex; flex-flow: row wrap;')
+        script.
+          //array of photo objects that will be queried from a server in part 2, contains all vacation and task descriptions
+          var photos=[
+          {
+          img: "/images/japan.jpg",
+          hasEntry: "1",
+          dest: "Japan",
+          year: "2018",
+          desc: "My dream destination to take all my closest family and friends; cherry blossoms, sushi, saunas, culture.",
+          nTasks: 5, //number of tasks currently assigned to plan
+          tasks: [
+          {taskname: "Accommodation", taskdesc: "@Masaru organise a place to stay with free breakfast :).", order:1},
+          {taskname: "Book Tickets", taskdesc: "@Tim please book the cheapest tickets available.", order:1},
+          {taskname: "Go Skiing", taskdesc: "Everyong make sure to bring warm clothing.", order:1},
+          {taskname: "Buy Souvenirs", taskdesc: "For our friends and family.", order:1},
+          {taskname: "Visit Mt. Fuji", taskdesc: "@Julia get your camera :)", order:1}
+          ]
+          //to add objects to array just photos.tasks.push({taskname, taskdesc});
+          //to get photos[0].tasks[0].taskname
+          },
+          {
+          img: "/images/empty.jpg",
+          hasEntry: "0",
+          dest: "Sample",
+          year: "2019",
+          desc: "Example description here",
+          nTasks: 0,
+          tasks: []
+          },
+          {
+          img: "/images/empty.jpg",
+          hasEntry: "0",
+          dest: "Sample",
+          year: "2020",
+          desc: "Example description here",
+          nTasks: 0,
+          tasks: []
+          }
+          ];
+          loadSaved();
+          //loads in any saved vacation entries from last session
+          function loadSaved(){
+          //iterates to load each photo entry
+          for(var i =1;i<=3;i++)
+          {
+          document.getElementById("photo"+i).src = photos[i-1].img;
+          document.getElementById("photo"+i).alt = photos[i-1].hasEntry;
+          document.getElementById("h"+i).innerHTML = photos[i-1].dest+" "+photos[i-1].year;
+          document.getElementById("d"+i).innerHTML = photos[i-1].desc;
+          }
+          }
+          //creates a window for you to interact with
+          function createfooter(n){
+          removefooter(); //clears any pre-existing windows
+          var photo=document.getElementById("photo"+n);
+          if(photo.alt=="1"){ //true if selected entry slot already contains a vacation plan
+          viewtasks(n); //if true then view current entry's tasks
+          } else {
+          createplaceform(n); //if false then create a new entry
+          };
+          }
+          //fill in details for a new vacation plan
+          function createplaceform(n){
+          var placeform="<form style='margin-left: 234px'><fieldset><legend>New Vacation!</legend>"+
+          "Destination: <input type='text' value='Australia' id='dest'> </br>"+
+          "Year: <input type='text' value='"+(new Date()).getFullYear()+"' id='year'></br>"+ //suggests the current year
+          "Description: <textarea cols='35' rows='3' id='desc'>Short description on interests and experience with the destination. </textarea></br>"+
+          "Who's Invited?: <textarea cols='33' rows='2'>Username1, Username2, Username3 (separated by commas) </textarea></br>"+
+          "Image: <input type='file' name='pic' accept='image/*'></br>"+
+          "<span style='color: red;'>(image upload doesnt work, requires backend)</span></br>"+
+          "<input type='button' value='Submit' onclick='setvacation("+n+")'>   <input type='button' value='Cancel' onclick='removefooter()'>"
+          "</fieldset></form>";
+          var footer=document.getElementById("footer");
+          footer.innerHTML=placeform;
+          }
+          function setvacation(n){
+          //changes the display
+          document.getElementById("photo"+n).src = "/images/france.jpg";
+          document.getElementById("photo"+n).alt = "1";
+          document.getElementById("h"+n).innerHTML = document.getElementById("dest").value+" "+document.getElementById("year").value;
+          document.getElementById("d"+n).innerHTML = document.getElementById("desc").value;
+          removefooter();
+          }
+          //view the current tasks
+          function viewtasks(n){
+          var nTasks = photos[n-1].nTasks; //number of existing tasks for selected vacation
+          //task creater window
+          var tasks="<div class='task' style='order:10;'>"+
+          "<div class='desc'><input type='text' value='Test' id='taskname' style='width: 80%; border: 1px solid rgb(106, 193, 185, 0.71);'></div>"+
+          "<div class='desc2'><textarea cols='23' rows='3' id='taskdesc' style='border: 1px solid rgb(106, 193, 185, 0.71);'>Testing 123 abc.</textarea></div>"+
+          "<input type='button' value='Add New Task' onclick='createTask("+n+")'></div>"
+          ;
+          var footer=document.getElementById("footer");
+          footer.innerHTML=tasks;
+          //load tasks from previous session / will be loaded from database in part 2 of project
+          for(var i=1;i<=nTasks;i++){
+          var taskwindow = "<div class='task' id='t"+i+"' style='order:"+(photos[n-1].tasks[i-1].order)+";'>"+
+          "<div class='desc'><b>"+(photos[n-1].tasks[i-1].taskname)+"</b></div>"+
+          "<div class='desc2'>"+(photos[n-1].tasks[i-1].taskdesc)+"</div>"+
+          "<input type='button' value='+1 Priority' onclick='voteUp("+i+")'></div>"
+          ;
+          footer.innerHTML+=taskwindow;
+          }
+          }
+          //creates as many new tasks as you want
+          function createTask(n) {
+          photos[n-1].nTasks+=1; //increases the number of tasks for selected vacation
+          var task =
+          "<div class='task' id='t"+photos[n-1].nTasks+"' style='order:1;'>"+
+          "<div class='desc'><b>"+document.getElementById("taskname").value+"</b></div>"+
+          "<div class='desc2'>"+document.getElementById("taskdesc").value+"</div>"+
+          "<input type='button' value='+1 Priority' onclick='voteUp("+photos[n-1].nTasks+")'></div>";
+          var footer=document.getElementById("footer");
+          footer.innerHTML+=task;
+          }
+          //for increasing the priority for each task
+          function voteUp(n){
+          document.getElementById("t"+n).style.order -= 1;
+          }
+          //close window
+          function removefooter(){
+          var footer=document.getElementById("footer");
+          footer.innerHTML="";
+          }
