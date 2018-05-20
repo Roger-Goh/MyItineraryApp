@@ -8,7 +8,7 @@ body {
 
 @font-face {
     font-family: Sunshine;
-	src: url('Sunshine.ttf');
+	src: url('/images/Sunshine.ttf');
 }
 
 .header {
