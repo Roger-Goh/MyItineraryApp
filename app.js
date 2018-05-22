@@ -13,6 +13,9 @@ var registerRouter = require('./app_server/routes/register');
 var loginRouter = require('./app_server/routes/login');
 var createPlanRouter = require('./app_server/routes/createPlan');
 
+var ctrlMain = require('./app_server/controllers/holidayLister');
+var models = require('./app_server/models/db');
+
 var app = express();
 
 // view engine setup
@@ -49,4 +52,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+require('./app_server/models/db');
 module.exports = app;

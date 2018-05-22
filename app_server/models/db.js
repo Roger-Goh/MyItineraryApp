@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var dbURI = 'mongodb://<dbuser>:<dbpassword>@ds129560.mlab.com:29560/vacationdb'; 
+var dbURI = 'mongodb://Roger:01686622oO@ds129560.mlab.com:29560/vacationdb'; 
 mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', () => { 
@@ -42,5 +42,4 @@ process.on('SIGTERM', () => {
     });
 });
 
-//require('./Project');
-//require('./account');
+require('./holiday_model');
