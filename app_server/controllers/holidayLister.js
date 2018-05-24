@@ -21,7 +21,7 @@ function index(req, res, next){
                 console.log('Find complete');
 
                 res.render('createPlan', {
-                    title: 'Vacation Planner', holidays:data}); //gives the view an array of holidays (holidays) from database
+                    title: 'Vacation Planner', holidays:data}); //gives the view an array of holidayLists (holidays) from database
                     
             }
         }
