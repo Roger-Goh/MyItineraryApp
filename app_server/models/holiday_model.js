@@ -11,7 +11,7 @@ var taskSchema = new mongoose.Schema(
 var holidaySchema = new mongoose.Schema(
     {                                                                     //example data:
         //img: {}, //find out how to store images                         //"/images/empty.jpg"
-        hasEntry: {type:Boolean, required:true},                          //"0" 
+        hasEntry: {type:String, required:true},                          //"0" 
         dest: {type:String, required:true},                               //"Sample"
         year: {type:Number, min:2018, required:true},                     //"2019"
         desc: {type:String, required:true},                               //"Example description here"

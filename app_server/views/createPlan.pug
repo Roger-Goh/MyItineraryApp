@@ -9,7 +9,10 @@ block content
         img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
         h2 Vacation Planner
         h3 By Roger Goh 21618306
-        li= holidays[0].holiday1.dest
+        //h4 Test #{holidays[0].holiday1.tasks[0].taskname}
+        //each task, i in holidays[0].holiday1.tasks
+        //  p=i+" "+task
+
         ul
           li
             a(href='#createPlan')
@@ -75,40 +78,41 @@ block content
           var photos=[
           {
           img: "/images/japan.jpg",
-          hasEntry: "1",
-          dest: "Japan",
-          year: "2018",
-          desc: "My dream destination to take all my closest family and friends; cherry blossoms, sushi, saunas, culture.",
-          nTasks: 5, //number of tasks currently assigned to plan
-          tasks: [
-          {taskname: "Accommodation", taskdesc: "@Masaru organise a place to stay with free breakfast :).", order:1},
-          {taskname: "Book Tickets", taskdesc: "@Tim please book the cheapest tickets available.", order:1},
-          {taskname: "Go Skiing", taskdesc: "Everyong make sure to bring warm clothing.", order:1},
-          {taskname: "Buy Souvenirs", taskdesc: "For our friends and family.", order:1},
-          {taskname: "Visit Mt. Fuji", taskdesc: "@Julia get your camera :)", order:1}
-          ]
+          hasEntry: "#{holidays[0].holiday1.hasEntry}",
+          dest: "#{holidays[0].holiday1.dest}",
+          year: "#{holidays[0].holiday1.year}",
+          desc: "#{holidays[0].holiday1.desc}",
+          nTasks: "#{holidays[0].holiday1.nTasks}", //number of tasks currently assigned to plan
+          tasks: []
           //to add objects to array just photos.tasks.push({taskname, taskdesc});
           //to get photos[0].tasks[0].taskname
           },
           {
           img: "/images/empty.jpg",
-          hasEntry: "0",
-          dest: "Sample",
-          year: "2019",
-          desc: "Example description here",
-          nTasks: 0,
+          hasEntry: "#{holidays[0].holiday2.hasEntry}",
+          dest: "#{holidays[0].holiday2.dest}",
+          year: "#{holidays[0].holiday2.year}",
+          desc: "#{holidays[0].holiday2.desc}",
+          nTasks: "#{holidays[0].holiday2.nTasks}",
           tasks: []
           },
           {
           img: "/images/empty.jpg",
-          hasEntry: "0",
-          dest: "Sample",
-          year: "2020",
-          desc: "Example description here",
-          nTasks: 0,
+          hasEntry: "#{holidays[0].holiday3.hasEntry}",
+          dest: "#{holidays[0].holiday3.dest}",
+          year: "#{holidays[0].holiday3.year}",
+          desc: "#{holidays[0].holiday3.desc}",
+          nTasks: "#{holidays[0].holiday3.nTasks}",
           tasks: []
           }
           ];
+         
+         //adds all tasks to each holiday in gallery
+         for(i=0;i<3;i++){
+           photos[i].tasks.push(#{holidays[0].holiday1.tasks});
+         }
+
+          photos[0].tasks.push({taskname: "Accommodation", taskdesc: "@Masaru organise a place to stay with free breakfast :).", order:1});
           loadSaved();
           //loads in any saved vacation entries from last session
           function loadSaved(){
