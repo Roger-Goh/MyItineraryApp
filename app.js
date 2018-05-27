@@ -3,6 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//for passport
+var passport = require('passport');
+var localStrategy = require('passport-local').Strategy;
 
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
@@ -27,6 +30,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//for passport
+app.use(require('express-session')(
+  {
+    secret: 'CITS3403',
+    resave: false,
+    saveUninitialized: false
+  }
+));
+app.use(passport.initialize());
+app.use(passport.session());
+//end of passport
 
 app.use('/', homeRouter); //when no sub path is provided //used to be indexrouter
 app.use('/users', usersRouter);
@@ -36,6 +50,13 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/createPlan', createPlanRouter);
 app.use('/createPlan/deleteHoliday', createPlanRouter);
+
+//passport config
+
+var Account = require('./app_server/models/account');
+passport.use(new localStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
