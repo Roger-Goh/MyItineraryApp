@@ -35,6 +35,7 @@ app.use('/ref', refRouter);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/createPlan', createPlanRouter);
+app.use('/createPlan/deleteHoliday', createPlanRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
