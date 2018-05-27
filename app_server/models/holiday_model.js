@@ -15,7 +15,7 @@ var holidaySchema = new mongoose.Schema(
         dest: {type:String, required:true},                               //"Sample"
         year: {type:Number, min:2018, required:true},                     //"2019"
         desc: {type:String, required:true},                               //"Example description here"
-        nTasks: {type:Number, required:true},                             //0
+        nTasks: {type:Number, required:true},                             //0 
         tasks: {type:[taskSchema], required: false, default: null} //specifies a schema inside a nested document
     }
 );
@@ -32,5 +32,6 @@ var holidaySchema = new mongoose.Schema(
 
 mongoose.model('Holiday', holidayListSchema); 
 mongoose.model('HolidaySchema', holidaySchema);
+mongoose.model('TaskSchema', taskSchema);
 //compiles the schema into a model
 //arguments are ('nameOfModel', schemaToUse, collection in database to use//optional)
