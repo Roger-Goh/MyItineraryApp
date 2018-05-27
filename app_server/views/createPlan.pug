@@ -107,12 +107,11 @@ block content
           }
           ];
          
-         //adds all tasks to each holiday in gallery
-         for(i=0;i<3;i++){
-           photos[i].tasks.push(#{holidays[0].holiday1.tasks});
-         }
+          //adds all tasks to each holiday in gallery
+          
+          photos[0].tasks.push(#{holidays[0].holiday1.tasks});
+          
 
-          photos[0].tasks.push({taskname: "Accommodation", taskdesc: "@Masaru organise a place to stay with free breakfast :).", order:1});
           loadSaved();
           //loads in any saved vacation entries from last session
           function loadSaved(){
@@ -164,10 +163,12 @@ block content
           var nTasks = photos[n-1].nTasks; //number of existing tasks for selected vacation
           //task creater window
           var tasks="<div class='task' style='order:10;'>"+
-          "<div class='desc'><input type='text' value='Test' id='taskname' style='width: 80%; border: 1px solid rgb(106, 193, 185, 0.71);'></div>"+
-          "<div class='desc2'><textarea cols='23' rows='3' id='taskdesc' style='border: 1px solid rgb(106, 193, 185, 0.71);'>Testing 123 abc.</textarea></div>"+
-          "<input type='button' value='Add New Task' onclick='createTask("+n+")'>"+
-          "</div>"+
+          "<form action='/createPlan/createTask' method='POST'>"+
+          "<div class='desc'><input type='text' value='Test' name='taskname' id='taskname' style='width: 80%; border: 1px solid rgb(106, 193, 185, 0.71);'></div>"+
+          "<div class='desc2'><textarea cols='23' rows='3' name='taskdesc' id='taskdesc' style='border: 1px solid rgb(106, 193, 185, 0.71);'>Testing 123 abc.</textarea></div>"+
+          "<input type='submit' value='Add New Task' onsubmit='createTask("+n+")'>"+
+          "<input type='hidden' value='"+n+"' name='n'>"+
+          "</form></div>"+
           "<div class='task' style='order:11;'>"+
           "<div class='desc'><b style='color: LightGray'>Delete Project</b></div>"+
           "<form action='/createPlan/deleteHoliday' method='POST'>"+

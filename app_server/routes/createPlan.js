@@ -6,5 +6,6 @@ var ctrlHoliday = require('../controllers/holidayLister');
 router.get('/', ctrlHoliday.loadHolidays); //loadHolidays gives the view an array of holidays from database
 router.post('/', ctrlHoliday.newHoliday); //is called by action='/createPlan' in createPlan view
 router.post('/deleteHoliday', ctrlHoliday.deleteHoliday);
+router.post('/createTask', ctrlHoliday.createTask);
 
 module.exports = router;
