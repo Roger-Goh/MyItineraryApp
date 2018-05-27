@@ -146,6 +146,18 @@ input[type=button]{
     opacity: 0.9;
 }
 
+input[type=submit]{
+    background-color: rgba(6, 204, 164,0.8);
+    color: white;
+    width: 13px;
+	height: 28px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    opacity: 0.9;
+}
+
 div.newplace{
     margin: 10px;
 	margin-bottom: 50px;

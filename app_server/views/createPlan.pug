@@ -135,16 +135,18 @@ block content
           createplaceform(n); //if false then create a new entry
           };
           }
-          //fill in details for a new vacation plan
+          //fill in details for a new vacation plan //the action and method in the form tag is what the createPlan router recognizes
+          //value of n is the corresponding holiday: eg. holiday1, holiday2, holiday 3
           function createplaceform(n){
-          var placeform="<form style='margin-left: 234px'><fieldset><legend>New Vacation!</legend>"+
-          "Destination: <input type='text' value='Australia' id='dest'> </br>"+
-          "Year: <input type='text' value='"+(new Date()).getFullYear()+"' id='year'></br>"+ //suggests the current year
-          "Description: <textarea cols='35' rows='3' id='desc'>Short description on interests and experience with the destination. </textarea></br>"+
+          var placeform="<form action='/createPlan' method='POST' style='margin-left: 234px'><fieldset><legend>New Vacation!</legend>"+
+          "Destination: <input type='text' value='Australia' id='dest' name='dest'> </br>"+
+          "Year: <input type='text' value='"+(new Date()).getFullYear()+"' id='year' name='year'></br>"+ //suggests the current year
+          "Description: <textarea cols='35' rows='3' id='desc' name='desc'>Short description on interests and experience with the destination. </textarea></br>"+
           "Who's Invited?: <textarea cols='33' rows='2'>Username1, Username2, Username3 (separated by commas) </textarea></br>"+
           "Image: <input type='file' name='pic' accept='image/*'></br>"+
           "<span style='color: red;'>(image upload doesnt work, requires backend)</span></br>"+
-          "<input type='button' value='Submit' onclick='setvacation("+n+")'>   <input type='button' value='Cancel' onclick='removefooter()'>"
+          "<input type='hidden' value='"+n+"' name='n'>"+
+          "<input type='submit' value='Submit' onsubmit='setvacation("+n+")'>   <input type='button' value='Cancel' onclick='removefooter()'>"
           "</fieldset></form>";
           var footer=document.getElementById("footer");
           footer.innerHTML=placeform;
@@ -198,3 +200,4 @@ block content
           var footer=document.getElementById("footer");
           footer.innerHTML="";
           }
+
