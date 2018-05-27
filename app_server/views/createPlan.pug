@@ -15,10 +15,10 @@ block content
 
         ul
           li
-            a(href='#createPlan')
+            a(href='/createPlan')
               b  Home ☀
           li
-            a(href='home')  Sign Out 
+            a(href='/home')  Sign Out 
         p Welcome to your Planner!
         p
           | I have created an entry on Japan for you to test out, please 
@@ -166,7 +166,14 @@ block content
           var tasks="<div class='task' style='order:10;'>"+
           "<div class='desc'><input type='text' value='Test' id='taskname' style='width: 80%; border: 1px solid rgb(106, 193, 185, 0.71);'></div>"+
           "<div class='desc2'><textarea cols='23' rows='3' id='taskdesc' style='border: 1px solid rgb(106, 193, 185, 0.71);'>Testing 123 abc.</textarea></div>"+
-          "<input type='button' value='Add New Task' onclick='createTask("+n+")'></div>"
+          "<input type='button' value='Add New Task' onclick='createTask("+n+")'>"+
+          "</div>"+
+          "<div class='task' style='order:11;'>"+
+          "<div class='desc'><b style='color: LightGray'>Delete Project</b></div>"+
+          "<form action='/createPlan/deleteHoliday' method='POST'>"+
+          "<input type='submit' value='Delete' style='background-color: Gainsboro'>"+
+          "<input type='hidden' value='"+n+"' name='n'>"+
+          "</form></div>"
           ;
           var footer=document.getElementById("footer");
           footer.innerHTML=tasks;
