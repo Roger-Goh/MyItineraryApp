@@ -9,6 +9,11 @@ block content
         img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
         h2 Vacation Planner
         h3 By Roger Goh 21618306
+        if (!user)
+          p Not a user
+          br
+        if (user)
+          p You are currently logged in as #{user.username}
         //h4 Test #{holidays[0].holiday1.tasks[0].taskname}
         //each task, i in holidays[0].holiday1.tasks
         //  p=i+" "+task
@@ -18,7 +23,7 @@ block content
             a(href='/createPlan')
               b  Home ☀
           li
-            a(href='/home')  Sign Out 
+            a(href='/createPlan/logout')  Sign Out 
         p Welcome to your Planner!
         p
           | I have created an entry on Japan for you to test out, please 
@@ -51,6 +56,8 @@ block content
             }
     // Title
     .header
+      b(style='font-size: 30px;') Welcome #{user.username}!
+      br
       b(style='font-size: 30px;') Places to Go
     // Photo Gallery
     .gallerycenter
@@ -78,37 +85,39 @@ block content
           var photos=[
           {
           img: "/images/japan.jpg",
-          hasEntry: "#{holidays[0].holiday1.hasEntry}",
-          dest: "#{holidays[0].holiday1.dest}",
-          year: "#{holidays[0].holiday1.year}",
-          desc: "#{holidays[0].holiday1.desc}",
-          nTasks: "#{holidays[0].holiday1.nTasks}", //number of tasks currently assigned to plan
+          hasEntry: "#{holidays.holiday1.hasEntry}",
+          dest: "#{holidays.holiday1.dest}",
+          year: "#{holidays.holiday1.year}",
+          desc: "#{holidays.holiday1.desc}",
+          nTasks: "#{holidays.holiday1.nTasks}", //number of tasks currently assigned to plan
           tasks: []
           //to add objects to array just photos.tasks.push({taskname, taskdesc});
           //to get photos[0].tasks[0].taskname
           },
           {
           img: "/images/empty.jpg",
-          hasEntry: "#{holidays[0].holiday2.hasEntry}",
-          dest: "#{holidays[0].holiday2.dest}",
-          year: "#{holidays[0].holiday2.year}",
-          desc: "#{holidays[0].holiday2.desc}",
-          nTasks: "#{holidays[0].holiday2.nTasks}",
+          hasEntry: "#{holidays.holiday2.hasEntry}",
+          dest: "#{holidays.holiday2.dest}",
+          year: "#{holidays.holiday2.year}",
+          desc: "#{holidays.holiday2.desc}",
+          nTasks: "#{holidays.holiday2.nTasks}",
           tasks: []
           },
           {
           img: "/images/empty.jpg",
-          hasEntry: "#{holidays[0].holiday3.hasEntry}",
-          dest: "#{holidays[0].holiday3.dest}",
-          year: "#{holidays[0].holiday3.year}",
-          desc: "#{holidays[0].holiday3.desc}",
-          nTasks: "#{holidays[0].holiday3.nTasks}",
+          hasEntry: "#{holidays.holiday3.hasEntry}",
+          dest: "#{holidays.holiday3.dest}",
+          year: "#{holidays.holiday3.year}",
+          desc: "#{holidays.holiday3.desc}",
+          nTasks: "#{holidays.holiday3.nTasks}",
           tasks: []
           }
           ];
          
           //adds all tasks to each holiday in gallery
-          photos[0].tasks.push(#{holidays[0].holiday1.tasks});
+          photos[0].tasks.push(#{holidays.holiday1.tasks});
+          photos[1].tasks.push(#{holidays.holiday2.tasks});
+          photos[2].tasks.push(#{holidays.holiday3.tasks});
           
 
           loadSaved();

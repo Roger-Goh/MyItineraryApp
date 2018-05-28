@@ -9,6 +9,13 @@ block content
         img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
         h2 Vacation Planner
         h3 By Roger Goh 21618306
+        
+        if (!user)
+          p Not a user
+          br
+        if (user)
+          p You are currently logged in as #{user.username}
+          
         ul
           li
             a(href='home')  Home 

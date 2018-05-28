@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var taskSchema = new mongoose.Schema(
     {                                                                     //example data
+        _id: {required: false},
         taskname: {type:String, required:true},                           //"Accommodation" 
         taskdesc: {type:String, required:true},                           //"@Masaru organise a place to stay with free breakfast :)." 
         order: {type:Number, required:true}                               //1

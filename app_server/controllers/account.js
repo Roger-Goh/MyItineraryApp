@@ -7,7 +7,7 @@ var passport = require('passport');
 //var Account = mongoose.model('Account');
 
 module.exports.regForm = function(req, res) {
-    res.render('register', { });
+    res.render('register', { user : req.user });
 };
 
 
@@ -31,6 +31,7 @@ module.exports.loginForm = function(req, res) {
 };
 
 module.exports.login =  function(req, res) {
+
    passport.authenticate('local')(req, res, function () {
         res.redirect('/createPlan');
     });
@@ -44,5 +45,5 @@ module.exports.login =  function(req, res) {
 
 module.exports.logout = function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/home');
 };

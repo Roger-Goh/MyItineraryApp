@@ -12,7 +12,7 @@ var TaskSchema = mongoose.model('TaskSchema');
 module.exports.loadHolidays = index;
 
 function index(req, res, next){
-    Holiday.find().exec(
+    Holiday.findOne({userName: req.user.username}).exec( //replace with findOne(req.user)
         function(err, data){
             if(err){
                 res.render('error', {
@@ -23,9 +23,8 @@ function index(req, res, next){
                 console.log('Find complete for loading');
 
                 res.render('createPlan', {
-                    title: 'Vacation Planner', holidays:data}); //gives the view an array of holidayLists (holidays) from database
-                    
-            }
+                    title: 'Vacation Planner', holidays:data, user:req.user}); //gives the view an array of holidayLists (holidays) from database //user:req.user is the session created when logged in or registered
+                }
         }
     )
 }
@@ -55,7 +54,7 @@ function updateHoliday(req, res, next){
         default:
             holidayN = {holiday3: newHoliday};
     }
-    Holiday.findOneAndUpdate({userName: "Roger"}, holidayN, function (err, data){
+    Holiday.findOneAndUpdate({userName: req.user.username}, holidayN, function (err, data){
         if(err){
             console.log(err);
             res.status(500);
@@ -95,7 +94,7 @@ module.exports.deleteHoliday = function(req, res, next){
         default:
             holidayN = {holiday3: newHoliday};
     }
-    Holiday.findOneAndUpdate({userName: "Roger"}, holidayN, function (err, data){
+    Holiday.findOneAndUpdate({userName: req.user.username}, holidayN, function (err, data){
         if(err){
             console.log(err);
             res.status(500);
@@ -132,7 +131,7 @@ module.exports.createTask = function(req, res, next){
         default:
             holidayN = {$push: {"holiday3.tasks": newTask}, $inc: {"holiday3.nTasks": 1}};
     }
-    Holiday.findOneAndUpdate({userName: "Roger"}, holidayN, function (err, data){
+    Holiday.findOneAndUpdate({userName: req.user.username}, holidayN, function (err, data){
         if(err){
             console.log(err);
             res.status(500);
