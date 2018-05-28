@@ -148,4 +148,43 @@ module.exports.createTask = function(req, res, next){
       });
 }
 
+//when +1 priority is clicked on a task
+module.exports.incrementPriority = function(req, res, next){
+    console.log('incrementPriority function called');
+    console.log('user: '+req.user.username);
+    console.log('user: '+req.body.taskName);
+    console.log('n: '+req.body.n);
+    //chooses which holiday is actually updated
+    var filter = {userName: req.user.username, "holiday3.tasks.taskname": req.body.taskName} //finds the right user data, then finds the right task
+    var holidayN= {$inc: {"holiday3.tasks.$.order": -1}} //decrements the order property in task
+    switch(req.body.n) {    //n is a hidden input value sent from the form depicting which holiday was selected
+        case "1":
+            filter = {userName: req.user.username, "holiday1.tasks.taskname": req.body.taskName}
+            holidayN = {$inc: {"holiday1.tasks.$.order": -1}}
+            break;
+        case "2":
+            filter = {userName: req.user.username, "holiday2.tasks.taskname": req.body.taskName}
+            holidayN = {$inc: {"holiday2.tasks.$.order": -1}}
+            break;
+        default:
+            filter = {userName: req.user.username, "holiday3.tasks.taskname": req.body.taskName}
+            holidayN = {$inc: {"holiday3.tasks.$.order": -1}}
+    }
+    Holiday.findOneAndUpdate(filter, holidayN, function (err, data){
+        if(err){
+            console.log(err);
+            res.status(500);
+            res.render('error',{
+                message:err.message,
+                error:err
+            });
+        }else{
+            console.log('successful incrementation of priority, holidayN: '+holidayN);
+
+            console.log(data, ' saved');
+            index(req,res,next);
+        }
+      });
+}
+
 //module.exports = createPlan;

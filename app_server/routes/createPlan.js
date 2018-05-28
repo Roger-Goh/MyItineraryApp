@@ -8,6 +8,8 @@ router.get('/', ctrlHoliday.loadHolidays); //loadHolidays gives the view an arra
 router.post('/', ctrlHoliday.newHoliday); //is called by action='/createPlan' in createPlan view
 router.post('/deleteHoliday', ctrlHoliday.deleteHoliday);
 router.post('/createTask', ctrlHoliday.createTask);
+router.post('/priority', ctrlHoliday.incrementPriority);
 router.get('/logout', ctrlAcc.logout);
+
 
 module.exports = router;

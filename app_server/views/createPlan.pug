@@ -191,8 +191,12 @@ block content
           var taskwindow = "<div class='task' id='t"+i+"' style='order:"+(photos[n-1].tasks[i-1].order)+";'>"+
           "<div class='desc'><b>"+(photos[n-1].tasks[i-1].taskname)+"</b></div>"+
           "<div class='desc2'>"+(photos[n-1].tasks[i-1].taskdesc)+"</div>"+
-          "<input type='button' value='+1 Priority' onclick='voteUp("+i+")'></div>"
+          "<form action='/createPlan/priority' method='POST'>"+
+          "<input type='hidden' value='"+n+"' name='n'>"+
+          "<input type='hidden' value='"+(photos[n-1].tasks[i-1].taskname)+"' name='taskName'>"+ 
+          "<input type='submit' value='+1 Prioritywow' onsubmit='voteUp("+i+")'></form></div>"
           ;
+          //sends taskName to controller to increment priority in mongodb
           footer.innerHTML+=taskwindow;
           }
           }
@@ -203,7 +207,7 @@ block content
           "<div class='task' id='t"+photos[n-1].nTasks+"' style='order:1;'>"+
           "<div class='desc'><b>"+document.getElementById("taskname").value+"</b></div>"+
           "<div class='desc2'>"+document.getElementById("taskdesc").value+"</div>"+
-          "<input type='button' value='+1 Priority' onclick='voteUp("+photos[n-1].nTasks+")'></div>";
+          "<input type='button' value='+1 Priority' onclick='voteUp("+photos[n-1].nTasks+")'></form></div>";
           var footer=document.getElementById("footer");
           footer.innerHTML+=task;
           }
