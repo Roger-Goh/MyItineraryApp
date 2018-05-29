@@ -12,7 +12,7 @@ block content
           p Not a user
           br
         if (user)
-          p You are currently logged in as #{user.username}
+          p Currently logged in as #{user.username}
         //h4 Test #{holidays[0].holiday1.tasks[0].taskname}
         //each task, i in holidays[0].holiday1.tasks
         //  p=i+" "+task
@@ -29,6 +29,11 @@ block content
           b click
           |  on a slot to add a new Holiday or to access tasks of an existing one.
         p These tasks are ordered by how much users have rated them by priority.
+        form(action="../viewFriend" method="post")
+          p='or View As: '
+            input(type='text' name='friend' value='Roger' size='5')
+            input(type='submit' value='Go' style='width: 10em')
+
         .footer
           p#curTime
           p#dateMod

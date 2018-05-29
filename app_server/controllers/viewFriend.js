@@ -12,7 +12,9 @@ var TaskSchema = mongoose.model('TaskSchema');
 module.exports.loadHolidays = index;
 
 function index(req, res, next){
-    Holiday.findOne({userName: "Roger"}).exec( //replace with findOne(req.user)
+    console.log('index in viewFriend was called');
+    console.log('Friend: '+req.body.friend); //req.body.param always gets from a POST method, req.query.param gets from a GET method
+    Holiday.findOne({userName: req.body.friend}).exec( //replace with findOne(req.user)
         function(err, data){
             if(err){
                 res.render('error', {
@@ -23,7 +25,7 @@ function index(req, res, next){
                 console.log('Find complete for loading');
 
                 res.render('viewFriend', {
-                    title: 'Vacation Planner', holidays:data, user:req.user}); //gives the view an array of holidayLists (holidays) from database //user:req.user is the session created when logged in or registered
+                    title: 'Vacation Planner', holidays:data, user:req.user, friend:req.body.friend}); //gives the view an array of holidayLists (holidays) from database //user:req.user is the session created when logged in or registered
                 }
         }
     )
@@ -49,7 +51,7 @@ module.exports.createTask = function(req, res, next){
         default:
             holidayN = {$push: {"holiday3.tasks": newTask}, $inc: {"holiday3.nTasks": 1}};
     }
-    Holiday.findOneAndUpdate({userName: "Roger"}, holidayN, function (err, data){
+    Holiday.findOneAndUpdate({userName: req.body.friend}, holidayN, function (err, data){
         if(err){
             console.log(err);
             res.status(500);
@@ -59,7 +61,7 @@ module.exports.createTask = function(req, res, next){
             });
         }else{
             console.log('Find complete for updating, holidayN: '+holidayN);
-
+            console.log('reqbodyfriend'+req.body.friend);
             console.log(data, ' saved');
             index(req,res,next);
         }
@@ -69,23 +71,23 @@ module.exports.createTask = function(req, res, next){
 //when +1 priority is clicked on a task
 module.exports.incrementPriority = function(req, res, next){
     console.log('incrementPriority function called');
-    console.log('user: '+"Roger");
+    console.log('user: '+req.body.friend);
     console.log('user: '+req.body.taskName);
     console.log('n: '+req.body.n);
     //chooses which holiday is actually updated
-    var filter = {userName: "Roger", "holiday3.tasks.taskname": req.body.taskName} //finds the right user data, then finds the right task
+    var filter = {userName: req.body.friend, "holiday3.tasks.taskname": req.body.taskName} //finds the right user data, then finds the right task
     var holidayN= {$inc: {"holiday3.tasks.$.order": -1}} //decrements the order property in task
     switch(req.body.n) {    //n is a hidden input value sent from the form depicting which holiday was selected
         case "1":
-            filter = {userName: "Roger", "holiday1.tasks.taskname": req.body.taskName}
+            filter = {userName: req.body.friend, "holiday1.tasks.taskname": req.body.taskName}
             holidayN = {$inc: {"holiday1.tasks.$.order": -1}}
             break;
         case "2":
-            filter = {userName: "Roger", "holiday2.tasks.taskname": req.body.taskName}
+            filter = {userName: req.body.friend, "holiday2.tasks.taskname": req.body.taskName}
             holidayN = {$inc: {"holiday2.tasks.$.order": -1}}
             break;
         default:
-            filter = {userName: "Roger", "holiday3.tasks.taskname": req.body.taskName}
+            filter = {userName: req.body.friend, "holiday3.tasks.taskname": req.body.taskName}
             holidayN = {$inc: {"holiday3.tasks.$.order": -1}}
     }
     Holiday.findOneAndUpdate(filter, holidayN, function (err, data){

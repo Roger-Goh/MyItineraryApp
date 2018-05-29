@@ -12,15 +12,14 @@ block content
           p Not a user
           br
         if (user)
-          p You are currently logged in as #{user.username}
+          p Currently logged in as #{user.username}
         //h4 Test #{holidays[0].holiday1.tasks[0].taskname}
         //each task, i in holidays[0].holiday1.tasks
         //  p=i+" "+task
 
         ul
           li
-            a(href='/createPlan')
-              b  Home ☀
+            a(href='/createPlan') Return to Your Board
           li
             a(href='/createPlan/logout')  Sign Out 
         p Welcome to your Planner!
@@ -56,7 +55,7 @@ block content
     .header
       b(style='font-size: 20px;') Welcome #{user.username}!
       br
-      b(style='font-size: 30px;') Roger's Holiday Board
+      b(style='font-size: 30px;') #{friend}'s Holiday Board
     // Photo Gallery
     .gallerycenter
       .gallery
@@ -171,6 +170,7 @@ block content
           "<div class='desc2'><textarea cols='23' rows='3' name='taskdesc' id='taskdesc' style='border: 1px solid rgb(106, 193, 185, 0.71);'>Testing 123 abc.</textarea></div>"+
           "<input type='submit' value='Add New Task' onsubmit='createTask("+n+")'>"+
           "<input type='hidden' value='"+n+"' name='n'>"+
+          "<input type='hidden' value='"+"#{friend}"+"' name='friend'>"+
           "</form></div>"
           ;
           var footer=document.getElementById("footer");
@@ -182,7 +182,8 @@ block content
           "<div class='desc2'>"+(photos[n-1].tasks[i-1].taskdesc)+"</div>"+
           "<form action='/viewFriend/priority' method='POST'>"+
           "<input type='hidden' value='"+n+"' name='n'>"+
-          "<input type='hidden' value='"+(photos[n-1].tasks[i-1].taskname)+"' name='taskName'>"+ 
+          "<input type='hidden' value='"+(photos[n-1].tasks[i-1].taskname)+"' name='taskName'>"+
+          "<input type='hidden' value='"+"#{friend}"+"' name='friend'>"+ 
           "<input type='submit' value='+1 Priority' onsubmit='voteUp("+i+")'></form></div>"
           ;
           //sends taskName to controller to increment priority in mongodb

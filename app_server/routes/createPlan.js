@@ -11,5 +11,10 @@ router.post('/createTask', ctrlHoliday.createTask);
 router.post('/priority', ctrlHoliday.incrementPriority);
 router.get('/logout', ctrlAcc.logout);
 
+//go to holidayLister controller to redirect the req,res to the viewFriend controller
+router.post('/viewFriend', function(req, res, next){
+  res.redirect('/viewFriend');
+});
+
 
 module.exports = router;
