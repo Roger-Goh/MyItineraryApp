@@ -9,11 +9,7 @@ block content
         img(src='/images/icon2.jpg', alt='FlyingIcon', style='width:100px;height:100px;')
         h2 Vacation Planner
         h3 By Roger Goh 21618306
-        if (!user)
-          p Not a user
-          br
-        if (user)
-          p You are currently logged in as #{user.username}
+
         ul
           li
             a(href='home')  Home 
@@ -23,7 +19,7 @@ block content
           li
             a(href='ref')  References 
         p
-          | Here we can access your vacation gallery without any log in details since we haven't implemented the backend of part 2 of this project.
+          | Please login with an existing account you have registered with to see your Holiday Gallery!
         .footer
           p#curTime
           p#dateMod

@@ -56,7 +56,7 @@ block content
     .header
       b(style='font-size: 20px;') Welcome #{user.username}!
       br
-      b(style='font-size: 30px;') Your Holiday Board
+      b(style='font-size: 30px;') Roger's Holiday Board
     // Photo Gallery
     .gallerycenter
       .gallery
@@ -149,15 +149,7 @@ block content
           //fill in details for a new vacation plan //the action and method in the form tag is what the createPlan router recognizes
           //value of n is the corresponding holiday: eg. holiday1, holiday2, holiday 3
           function createplaceform(n){
-          var placeform="<form action='/createPlan' method='POST' style='margin-left: 234px'><fieldset><legend>New Vacation!</legend>"+
-          "Destination: <input type='text' value='Country' id='dest' name='dest'> </br>"+
-          "Year: <input type='text' value='"+(new Date()).getFullYear()+"' id='year' name='year'></br>"+ //suggests the current year
-          "Description: <textarea cols='35' rows='3' id='desc' name='desc'>Short description on interests and experience with the destination. </textarea></br>"+
-          "Image: <input type='file' name='pic' accept='image/*'></br>"+
-          //"<span style='color: red;'>(image upload doesnt work, requires backend)</span></br>"+
-          "<input type='hidden' value='"+n+"' name='n'>"+
-          "<input type='submit' value='Submit' onsubmit='setvacation("+n+")'>   <input type='button' value='Cancel' onclick='removefooter()'>"
-          "</fieldset></form>";
+          var placeform="";
           var footer=document.getElementById("footer");
           footer.innerHTML=placeform;
           }
@@ -174,16 +166,10 @@ block content
           var nTasks = photos[n-1].nTasks; //number of existing tasks for selected vacation
           //task creater window
           var tasks="<div class='task' style='order:10;'>"+
-          "<form action='/createPlan/createTask' method='POST'>"+
+          "<form action='/viewFriend/createTask' method='POST'>"+
           "<div class='desc'><input type='text' value='Test' name='taskname' id='taskname' style='width: 80%; border: 1px solid rgb(106, 193, 185, 0.71);'></div>"+
           "<div class='desc2'><textarea cols='23' rows='3' name='taskdesc' id='taskdesc' style='border: 1px solid rgb(106, 193, 185, 0.71);'>Testing 123 abc.</textarea></div>"+
           "<input type='submit' value='Add New Task' onsubmit='createTask("+n+")'>"+
-          "<input type='hidden' value='"+n+"' name='n'>"+
-          "</form></div>"+
-          "<div class='task' style='order:11;'>"+
-          "<div class='desc'><b style='color: LightGray'>Delete Project</b></div>"+
-          "<form action='/createPlan/deleteHoliday' method='POST'>"+
-          "<input type='submit' value='Delete' style='background-color: Gainsboro'>"+
           "<input type='hidden' value='"+n+"' name='n'>"+
           "</form></div>"
           ;
@@ -194,7 +180,7 @@ block content
           var taskwindow = "<div class='task' id='t"+i+"' style='order:"+(photos[n-1].tasks[i-1].order)+";'>"+
           "<div class='desc'><b>"+(photos[n-1].tasks[i-1].taskname)+"</b></div>"+
           "<div class='desc2'>"+(photos[n-1].tasks[i-1].taskdesc)+"</div>"+
-          "<form action='/createPlan/priority' method='POST'>"+
+          "<form action='/viewFriend/priority' method='POST'>"+
           "<input type='hidden' value='"+n+"' name='n'>"+
           "<input type='hidden' value='"+(photos[n-1].tasks[i-1].taskname)+"' name='taskName'>"+ 
           "<input type='submit' value='+1 Priority' onsubmit='voteUp("+i+")'></form></div>"

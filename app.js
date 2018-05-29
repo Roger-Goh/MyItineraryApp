@@ -15,6 +15,7 @@ var refRouter = require('./app_server/routes/ref');
 var registerRouter = require('./app_server/routes/register');
 var loginRouter = require('./app_server/routes/login');
 var createPlanRouter = require('./app_server/routes/createPlan');
+var viewFriendRouter = require('./app_server/routes/viewFriend');
 
 var ctrlMain = require('./app_server/controllers/holidayLister');
 var models = require('./app_server/models/db');
@@ -50,6 +51,7 @@ app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/createPlan', createPlanRouter);
 app.use('/createPlan/deleteHoliday', createPlanRouter);
+app.use('/viewFriend', viewFriendRouter);
 
 //passport config
 
